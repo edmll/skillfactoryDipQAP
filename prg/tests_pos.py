@@ -99,7 +99,7 @@ class TestRegistration:
             browser.implicitly_wait(5)
         assert page.get_relative_link() == '/account_b2c/page'
         page.driver.save_screenshot('reg_done.png')
-        with open(r"../pages/Settings.py", 'r', encoding='utf8') as file:
+        with open(r"../prg/Settings.py", 'r', encoding='utf8') as file:
             lines = []
             for line in file.readlines():
                 if 'valid_email' in line:
@@ -108,7 +108,7 @@ class TestRegistration:
                     lines.append(f"valid_pass_reg = '{fake_password}'\n")
                 else:
                     lines.append(line)
-        with open(r"../pages/Settings.py", 'w', encoding='utf8') as file:
+        with open(r"../prg/Settings.py", 'w', encoding='utf8') as file:
             file.writelines(lines)
 
 @pytest.mark.usefixtures("browser")
@@ -145,12 +145,12 @@ def test_forgot_password_page(browser):
     browser.find_element(*NewPassLocators.NEWPASS_BTN_SAVE).click()
     time.sleep(60)
     assert page.get_relative_link() == '/auth/realms/b2c/login-actions/authenticate'
-    with open(r"../pages/settings.py", 'r', encoding='utf8') as file:
+    with open(r"../prg/settings.py", 'r', encoding='utf8') as file:
         lines = []
         for line in file.readlines():
             if 'valid_pass_reg' in line:
                 lines.append(f"valid_pass_reg = '{fake_password}'\n")
             else:
                 lines.append(line)
-    with open(r"../pages/settings.py", 'w', encoding='utf8') as file:
+    with open(r"../prg/settings.py", 'w', encoding='utf8') as file:
         file.writelines(lines)
